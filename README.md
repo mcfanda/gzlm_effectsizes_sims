@@ -23,7 +23,7 @@ To obtain a new set of simulation results for each model type go into the corres
 
 # Simulations from scratch
 
-To obtain simulation results above, for each model a set of linear parameters corresponding to a given $R^2$ in the population are stored in the file `b_for_r2.RData` and `b_for_eta2.RData`. To rebuild these files from scratches, run `find_b.R` (it may be quite time-consuming).
+To obtain simulation results above, for each model a set of linear parameters corresponding to a given $R^2$ in the population are stored in the file `b_for_r2.RData` and `b_for_eta2.RData`. To rebuild these files from scratch, run `find_b.R` (it may be quite time-consuming).
 
 # Estimation methods
 
