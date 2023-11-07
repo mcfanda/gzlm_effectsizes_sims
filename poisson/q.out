@@ -1,0 +1,25 @@
+    pvar   model                 b ncovs rcovs stat
+1  0.025 poisson 0.273677542771052     3   0.3 eta2
+2   0.05 poisson 0.390646408723137     3   0.3 eta2
+3  0.075 poisson 0.480931274345666     3   0.3 eta2
+4    0.1 poisson 0.555539603253164     3   0.3 eta2
+5  0.125 poisson 0.621900937038692     3   0.3 eta2
+6   0.15 poisson 0.686621627879225     3   0.3 eta2
+7  0.175 poisson 0.750570962961212     3   0.3 eta2
+8    0.2 poisson 0.801200099075988     3   0.3 eta2
+9  0.225 poisson  0.85946785708769     3   0.3 eta2
+10  0.25 poisson 0.916810248572053     3   0.3 eta2
+11 0.275 poisson 0.968532304894698     3   0.3 eta2
+12   0.3 poisson  1.02465566161644     3   0.3 eta2
+13 0.325 poisson   1.0721847384156     3   0.3 eta2
+14  0.35 poisson  1.12603806614452     3   0.3 eta2
+15 0.375 poisson  1.19222159573477     3   0.3 eta2
+16   0.4 poisson  1.25239575183455     3   0.3 eta2
+17 0.425 poisson  1.30979790552413     3   0.3 eta2
+18  0.45 poisson  1.36931876219781     3   0.3 eta2
+19 0.475 poisson  1.43231617573004     3   0.3 eta2
+20   0.5 poisson  1.50234183866716     3   0.3 eta2
+Simulating 20  values of eta2 for model  poisson , replications: 5000 
+Working in  /home/marcello_gallucci/project/gzlmpower/poisson 
+Simulations ended
+1315.102 sec elapsed

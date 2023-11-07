@@ -1,0 +1,25 @@
+    pvar  model                 b ncovs rcovs stat
+1  0.025 normal 0.172983575552351     3   0.3 eta2
+2   0.05 normal 0.246598822198989     3   0.3 eta2
+3  0.075 normal 0.306696680245293     3   0.3 eta2
+4    0.1 normal 0.358760198162211     3   0.3 eta2
+5  0.125 normal 0.408279124394537     3   0.3 eta2
+6   0.15 normal 0.452327234092972     3   0.3 eta2
+7  0.175 normal  0.49613347703456     3   0.3 eta2
+8    0.2 normal 0.538944952877349     3   0.3 eta2
+9  0.225 normal 0.581099855103365     3   0.3 eta2
+10  0.25 normal 0.622653550317814     3   0.3 eta2
+11 0.275 normal 0.663348231123072     3   0.3 eta2
+12   0.3 normal   0.7045068758498     3   0.3 eta2
+13 0.325 normal 0.748681820105568     3   0.3 eta2
+14  0.35 normal 0.790398715878458     3   0.3 eta2
+15 0.375 normal  0.83420370261554     3   0.3 eta2
+16   0.4 normal 0.879663430749583     3   0.3 eta2
+17 0.425 normal 0.925568652297992     3   0.3 eta2
+18  0.45 normal 0.974460984513045     3   0.3 eta2
+19 0.475 normal  1.02547477114299     3   0.3 eta2
+20   0.5 normal   1.0772213813006     3   0.3 eta2
+Simulating 20  values of eta2 for model  normal , replications: 5000 
+Working in  /home/marcello_gallucci/project/gzlmpower/normal 
+Simulations ended
+1136.566 sec elapsed

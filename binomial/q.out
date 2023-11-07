@@ -1,0 +1,25 @@
+    pvar    model                 b ncovs rcovs stat
+1  0.025 binomial 0.501239912774657     3   0.3 eta2
+2   0.05 binomial 0.722697439033798     3   0.3 eta2
+3  0.075 binomial 0.910149069043216     3   0.3 eta2
+4    0.1 binomial  1.07574773281351     3   0.3 eta2
+5  0.125 binomial  1.23591342478702     3   0.3 eta2
+6   0.15 binomial  1.38569332625986     3   0.3 eta2
+7  0.175 binomial   1.5421911591958     3   0.3 eta2
+8    0.2 binomial  1.69744111577644     3   0.3 eta2
+9  0.225 binomial   1.8503316256562     3   0.3 eta2
+10  0.25 binomial  2.02340192896514     3   0.3 eta2
+11 0.275 binomial  2.19600510861405     3   0.3 eta2
+12   0.3 binomial  2.37065290705347     3   0.3 eta2
+13 0.325 binomial    2.550224988252     3   0.3 eta2
+14  0.35 binomial  2.73969359990539     3   0.3 eta2
+15 0.375 binomial  2.95233550377041     3   0.3 eta2
+16   0.4 binomial  3.16860499607108     3   0.3 eta2
+17 0.425 binomial  3.41590279692071     3   0.3 eta2
+18  0.45 binomial  3.67290269798985     3   0.3 eta2
+19 0.475 binomial  3.95452868178952     3   0.3 eta2
+20   0.5 binomial  4.26850543279464     3   0.3 eta2
+Simulating 20  values of eta2 for model  binomial , replications: 5000 
+Working in  /home/marcello_gallucci/project/gzlmpower/binomial 
+Simulations ended
+1248.667 sec elapsed
