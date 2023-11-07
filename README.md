@@ -25,6 +25,10 @@ To obtain a new set of simulation results for each model type go into the corres
 
 To obtain simulation results above, for each model a set of linear parameters corresponding to a given $R^2$ in the population are stored in the file `b_for_r2.RData` and `b_for_eta2.RData`. To rebuild these files from scratches, run `find_b.R` (it may be quite time-consuming).
 
+# Estimation methods
+
+All calculations are done with functions contained in the file `functions.R`. All checks can be done there. In the folders there's a soft link to the root folder `function.R` file. In operative systems that do not support soft-links, please copy the `function.R` file from the root to each model type folder. 
+
 # Poisson folder
 
 Poisson models are not simulated in the paper. The folder contains simulations for the accuracy of the indices, used to test the formulation beyond the paper material. 
