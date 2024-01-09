@@ -59,6 +59,6 @@ cbind(eta_pop=info$pvar,b=info$b,N=n,eN=ne)
 })
 
 requiredN<-as.data.frame(do.call(rbind,results))
-save(requiredN,file="requiredN.Rdata")
+save(requiredN,file="requiredN_r2.Rdata")
 cat("Time: ",Sys.time()-t)
 #sink()

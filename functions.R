@@ -92,6 +92,8 @@ create_sample<-function(b, N=100,otherb=0, ncovs=1, rcovs=0, what="r2", k=3) {
   s<-seq(0,1,by=1/k)
   y<-cut(l,quantile(l,probs = s))
   levels(y)<-1:k
+  y[is.na(y)]<-1
+
   .data<-as.data.frame(cbind(y,covs))
   class(.data)<-c("ordinal",class(.data))
   .data
@@ -174,12 +176,18 @@ onetest<-function(data,family=NULL) {
   p_eta<-a$`Pr(>Chisq)`[1]
   pow_eta<-as.numeric(p_eta<.05)
   eta2<-chi_eta/(mod0$deviance)
-  eps2<-(chi_eta-.5)/mod0$deviance
+  eps2<-(chi_eta-1)/(mod0$deviance)
   adev<-mod$deviance/N
   adev0<- mod$null.deviance/N
   r2<-1-(mod$deviance/mod0$deviance)
-  if (r2>.99) return(NULL)
-  ar2<-1-((mod$deviance+k)/mod0$deviance)
+
+  pp<-predict(mod,type="response")
+  pp1<-any(pp==1)
+  pp2<-any(pp<10^-10)
+  if (pp1 || pp2 || r2>.99) {
+    return(NULL)
+  }
+  ar2<-1-((mod$deviance+k)/(mod0$deviance))
   ar2df<-1-((mod$deviance*(N-1))/((N-k-1)*mod0$deviance))
   chi_mod<-as.numeric(anova(mod0,mod,test = "LRT")[2,4])
   p_mod<-as.numeric(anova(mod0,mod,test = "LRT")[2,5])
@@ -201,7 +209,7 @@ onetest<-function(data,family=NULL) {
   p<-(classes-1)
   k<-(ncol(data)-1)
   baserate<-table(data$y)[1]/N
-  df<-k*(classes-1)
+  df<-k*p
   form<<-paste("y~",paste0("V",(1:k)+1,collapse = "+"))
   x<-capture.output({
     mod<-nnet::multinom(form,data=data)
@@ -213,12 +221,17 @@ onetest<-function(data,family=NULL) {
   p_eta<-a$`Pr(>Chisq)`[1]
   pow_eta<-as.numeric(p_eta<.05)
   eta2<-chi_eta/(mod0$deviance)
-
-  eps2<-(chi_eta-p)/mod0$deviance
+  eps2<-(chi_eta-p)/(mod0$deviance)
   adev<-mod$deviance/N
   adev0<- mod0$deviance/N
   r2<-1-(mod$deviance/mod0$deviance)
-  if (r2>.999) return(NULL)
+  pp<-predict(mod,type="probs")
+  pp1<-any(pp==1)
+  pp2<-any(pp<10^-10)
+
+  if (pp1 || pp2 || r2>.99) {
+    return(NULL)
+  }
   ar2<-1-((mod$deviance+df)/mod0$deviance)
   ar2df<-1-((mod$deviance*(N-1))/((N-k-1)*mod0$deviance))
   chi_mod<-as.numeric(anova(mod0,mod)[2,6])
@@ -251,12 +264,12 @@ onetest<-function(data,family=NULL) {
   p_eta<-a$`Pr(>Chi)`[2]
   pow_eta<-as.numeric(p_eta<.05)
   eta2<-chi_eta/dev0
-  eps2<-(chi_eta-.5)/dev0
+  eps2<-(chi_eta-1)/(dev0)
   adev<-dev1/N
   adev0<- dev0/N
   r2<-1-(dev1/dev0)
   if (r2>.99) return(NULL)
-  ar2<-1-((dev1+k)/dev0)
+  ar2<-1-((dev1+k)/(dev0))
   ar2df<-1-((dev1*(N-1))/((N-k-1)*dev0))
   chi_mod<-as.numeric(anova(mod0,mod)[2,4])
   p_mod<-as.numeric(anova(mod0,mod)[2,6])
@@ -287,10 +300,11 @@ onetest<-function(data,family=NULL) {
   chi_eta<-a$`F value`[1]
   p_eta<-a$`Pr(>F)`[1]
   pow_eta<-as.numeric(p_eta<=.05)
-  eta2<-a$`Sum Sq`[1]/(a$`Sum Sq`[1]+dev1)
-  eps2<-(a$`Sum Sq`[1]-(a$Df[1]*sigma(mod)))/(a$`Sum Sq`[1]+dev1)
+  eta2<-a$`Sum Sq`[1]/dev0
+  eps2<-(a$`Sum Sq`[1]-(a$Df[1]*sigma(mod)^2))/dev0
   ### we use the ar2df slot here for gamma
-  ar2df<-ar2
+  ss_mx<-(a$`Sum Sq`[1]+(N-k-1)*sigma(mod)^2)/(N-k)
+  ar2df<-(ss_mx-sigma(mod)^2)/sigma(mod0)^2
   adev<-sigma(mod)^2
   adev0<- sigma(mod0)^2
   chi_mod<-as.numeric(anova(mod0,mod)[2,5])
@@ -307,23 +321,6 @@ onetest<-function(data,family=NULL) {
 
 
 
-## sample a sample of N cases from a given dataset and return the logistic regression results
-
-### this makes a population with a given pvar parameter finding the appropriated b coefficients
-### it is not meant to be efficient, it is meant to work
-make_pop<-function(pvar,model,rcovs=0,ncovs=1, what=what,N=10^6,debug=FALSE) {
-  ### first quickly find reasonable starting points
-  first<-findb(pvar,N=10^3,b=1,otherb = 0.1, rcovs = rcovs, ncovs=ncovs,what=what,model = model)
-  second<-findb(pvar,N=10^3,b=1,otherb = 0.1, rcovs = rcovs, ncovs=ncovs,what=what,model = model)
-  ### then create the population dataset
-  findb(pvar,N=N,b=mean(first$b,second$b),otherb = 0.1, rcovs = rcovs, ncovs=ncovs,what=what,data=T,model = model,debug=debug)
-}
-
-### this run one trials (one sample)
-onetrial<-function(N) {
-
-  onetest(onesample(pop,N))
-}
 
 ## This function numerically find a b coefficient that guarantees the required eta2 or r2 squared
 findb<-function(pvar,b=1,otherb=0,N=10^5,ncovs=3,rcovs=0,what="r2",dataout=FALSE,model="binomial",debug=FALSE) {

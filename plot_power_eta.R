@@ -2,7 +2,7 @@ source("functions.R")
 load("normal/eta2_simdata.RData")
 
 dd<-eta2_simdata[eta2_simdata$stat=="mean",]
-dd<-dd[dd$exp_par<.41,]
+
 
 dd$n<-dd$N
 dd$N<-factor(dd$N)
@@ -17,7 +17,7 @@ dd$est_powar<-p$power
 levels(dd$N)<-c("N=25","N=50","N=75","N=100")
 g<-ggplot(dd,aes(x=exp_par,y=pow_mod))+geom_smooth(aes(color="Actual"),se = FALSE)
 g<-g+geom_smooth(aes(x=exp_par,y=est_powr,color="\u03b7\u00B2"),se=FALSE )
-g<-g+geom_smooth(aes(x=exp_par,y=est_powar,color="\u03b3\u00B2"),se=FALSE )
+g<-g+geom_smooth(aes(x=exp_par,y=est_powar,color="\u03b5\u00B2"),se=FALSE )
 g<-g +ggtitle("Gaussian")
 g<-g+theme(strip.text.x = element_text(size = 7))
 
@@ -33,11 +33,12 @@ g1
 load("binomial/eta2_simdata.RData")
 
 dd<-eta2_simdata[eta2_simdata$stat=="mean",]
-dd<-dd[dd$exp_par<.41,]
+
 dd$n<-dd$N
 dd$N<-factor(dd$N)
-d0<-2*.5*log(.5)
-d0<--2*d0
+## -2*(2*.5*log(.5))
+d0<--2*(log(.5))
+
 lambda2<-dd$eta2*d0
 p<-pwr::pwr.chisq.test(w=sqrt(lambda2),df=1,N=dd$n)
 dd$est_powr<-p$power
@@ -50,7 +51,7 @@ levels(dd$N)<-c("N=25","N=50","N=75","N=100")
 g<-ggplot(dd,aes(x=exp_par,y=pow_mod))
 g<-g+geom_smooth(aes(color="Actual"),se = FALSE)
 g<-g+geom_smooth(aes(x=exp_par,y=est_powr,color="\u03b7\u00B2"),se=FALSE )
-g<-g+geom_smooth(aes(x=exp_par,y=est_powar,color="\u03b3\u00B2"),se=FALSE )
+g<-g+geom_smooth(aes(x=exp_par,y=est_powar,color="\u03b5\u00B2"),se=FALSE )
 g<-g+theme(strip.text.x = element_text(size = 7))
 
 #g<-g+geom_smooth(aes(x=eta_pop,y=lpow,linetype="Wald"),se=FALSE, color="black")
@@ -65,7 +66,7 @@ g2
 load("multinomial/eta2_simdata.RData")
 
 dd<-eta2_simdata[eta2_simdata$stat=="mean",]
-dd<-dd[dd$exp_par<.41,]
+
 
 dd$n<-dd$N
 dd$N<-factor(dd$N)
@@ -83,7 +84,7 @@ levels(dd$N)<-c("N=25","N=50","N=75","N=100")
 g<-ggplot(dd,aes(x=exp_par,y=pow_mod))
 g<-g+geom_smooth(aes(color="Actual"),se = FALSE)
 g<-g+geom_smooth(aes(x=exp_par,y=est_powr,color="\u03b7\u00B2"),se=FALSE )
-g<-g+geom_smooth(aes(x=exp_par,y=est_powar,color="\u03b3\u00B2"),se=FALSE )
+g<-g+geom_smooth(aes(x=exp_par,y=est_powar,color="\u03b5\u00B2"),se=FALSE )
 g<-g+theme(strip.text.x = element_text(size = 7))
 
 #g<-g+geom_smooth(aes(x=eta_pop,y=lpow,linetype="Wald"),se=FALSE, color="black")
@@ -100,7 +101,7 @@ eta2_simdata<-NULL
 load("ordinal/eta2_simdata.RData")
 
 dd<-eta2_simdata[eta2_simdata$stat=="mean",]
-dd<-dd[dd$exp_par<.41,]
+
 dd$n<-dd$N
 dd$N<-factor(dd$N)
 d0<-3*.5*log(.5)
@@ -117,7 +118,7 @@ levels(dd$N)<-c("N=25","N=50","N=75","N=100")
 g<-ggplot(dd,aes(x=exp_par,y=pow_mod))
 g<-g+geom_smooth(aes(color="Actual"),se = FALSE)
 g<-g+geom_smooth(aes(x=exp_par,y=est_powr,color="\u03b7\u00B2"),se=FALSE )
-g<-g+geom_smooth(aes(x=exp_par,y=est_powar,color="\u03b3\u00B2"),se=FALSE )
+g<-g+geom_smooth(aes(x=exp_par,y=est_powar,color="\u03b5\u00B2"),se=FALSE )
 g<-g+theme(strip.text.x = element_text(size = 7))
 
 #g<-g+geom_smooth(aes(x=eta_pop,y=lpow,linetype="Wald"),se=FALSE, color="black")
@@ -136,7 +137,7 @@ legend_b <- get_legend(
     theme(legend.position = "bottom")
 )
 library(cowplot)
-startBookFig("../paper/figura4.jpg",TRUE,font =10)
+startBookFig("../paper/figure4.jpg",TRUE,font =10)
 plot_grid(g1+ theme(legend.position="none")+labs(x = NULL)+theme(strip.text.x = element_text(size = 7)),
           g2+ theme(legend.position="none")+labs(x = NULL)+theme(strip.text.x = element_text(size = 7)),
           g3+ theme(legend.position="none")+labs(x = NULL)+theme(strip.text.x = element_text(size = 7)),

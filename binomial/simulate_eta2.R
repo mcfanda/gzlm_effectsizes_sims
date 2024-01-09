@@ -1,17 +1,24 @@
 tictoc::tic()
 source("functions.R")
-load("b_for_eta2.RData")
-popvalues<-b_for_eta2
-popvalues
 ### some simulations parameters
 model<-"binomial"
 R<-5*10^3
 Ns<-c(25,50,75,100)
-pvars<-seq(.025,.50,by=.025)
 what<- "eta2"
 #######
 
-cat("Simulating",length(pvars)," values of",what,"for model ", model,", replications:",R, "\n")
+####### filenames ###
+bdata<-"b_for_eta2.RData"
+odata<- "eta2_simdata.RData"
+###
+# this when used in RStudio
+#bdata<-paste0(model,"/",bdata)
+#odata<-paste0(model,"/",odata)
+#
+
+load(bdata)
+pvars<-b_for_eta2[1:16,]
+cat("Simulating",length(Ns)," sample sizes for",what,"in model ", model,", replications:",R, "\n")
 cat("Working in ",getwd(),"\n")
 
 doFuture::registerDoFuture()
@@ -22,6 +29,7 @@ make_by_param<-function(info) {
 
   info$b<-as.numeric(info$b)
   class(info$b)<-c(model,"numeric")
+  message("Simulating for",what,"=",info$pvar)
 
   onerun<-function(n) {
     .sample<-create_sample(b = info$b,ncovs = as.numeric(info$ncovs),rcovs = as.numeric(info$rcovs),N = n, what=what)
@@ -39,12 +47,13 @@ make_by_param<-function(info) {
     res$N<-n
     res$exp_par<-as.numeric(info$pvar)
     res$R<-R
+    res$aR<-dim(onelong)[1]
     res
   })
   as.data.frame(do.call(rbind,nrepls))
 }
 
-reslist  <- foreach::foreach(i=1:nrow(popvalues)) %dorng%  make_by_param(popvalues[i,])
+reslist  <- foreach::foreach(i=1:nrow(pvars)) %dorng%  make_by_param(pvars[i,])
 
 # use lapply for debugging
 #reslist  <- lapply(1:nrow(popvalues) , function(i)  make_by_param(popvalues[i,]))

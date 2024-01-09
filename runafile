@@ -1,0 +1,39 @@
+#!/bin/bash
+command="Rscript"
+
+# Check if the number of arguments is less than 1
+if [ "$#" -lt 1 ]; then
+    echo "Usage: $0 <filename>"
+    exit 1
+fi
+
+# Extract the filename
+filename=$1
+
+# List of directories to process
+directories=(
+    "binomial"
+    "multinomial"
+    "ordinal"
+
+    # Add more directories as needed
+)
+
+# Iterate over each directory
+for directory in "${directories[@]}"; do
+    # Check if the directory exists
+    if [ -d "$directory" ]; then
+        echo "Entering directory: $directory"
+        cd "$directory" || exit 1  # Change to the directory
+
+        echo "Executing command: $command $filename"
+        $command "$filename"  # Execute the 'file' command with the specified filename
+
+        cd - > /dev/null  # Return to the previous directory
+        echo "Exited directory: $directory"
+    else
+        echo "Error: Directory '$directory' not found."
+    fi
+done
+
+echo "Script execution complete."

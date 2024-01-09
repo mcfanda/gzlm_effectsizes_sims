@@ -2,8 +2,8 @@ library(ggplot2)
 source("functions.R")
 load("normal/r2_simdata.RData")
 
-dd<-r2_normal_simdata[r2_normal_simdata$stat=="mean",]
-dd<-dd[dd$exp_par<.41,]
+dd<-r2_simdata[r2_simdata$stat=="mean",]
+
 
 dd$n<-dd$N
 dd$N<-factor(dd$N)
@@ -33,8 +33,8 @@ g1
 
 load("binomial/r2_simdata.RData")
 
-dd<-r2_binomial_simdata[r2_binomial_simdata$stat=="mean",]
-dd<-dd[dd$exp_par<.41,]
+dd<-r2_simdata[r2_simdata$stat=="mean",]
+
 dd$n<-dd$N
 dd$N<-factor(dd$N)
 d0<-2*.5*log(.5)
@@ -61,12 +61,12 @@ g<-g +ggtitle("Logistic")
 g<- g + scale_color_manual(values=c("black","#00BFC4","#F8766D"))
 #g<- g + scale_color_manual(values=c("black","#00BFC4","#F8766D"))
 g2<-g+theme_classic()+ theme(plot.title = element_text(hjust = 0.5))
-
+g2
 r2_simdata<-NULL
 load("multinomial/r2_simdata.RData")
 
 dd<-r2_simdata[r2_simdata$stat=="mean",]
-dd<-dd[dd$exp_par<.41,]
+
 dd$n<-dd$N
 dd$N<-factor(dd$N)
 d0<-3*.5*log(.5)
@@ -102,7 +102,7 @@ r2_simdata<-NULL
 load("ordinal/r2_simdata.RData")
 
 dd<-r2_simdata[r2_simdata$stat=="mean",]
-dd<-dd[dd$exp_par<.41,]
+
 dd$n<-dd$N
 dd$N<-factor(dd$N)
 d0<-3*.5*log(.5)
@@ -139,7 +139,7 @@ legend_b <- get_legend(
     theme(legend.position = "bottom")
 )
 
-startBookFig("../paper/figura3.jpg",TRUE,font =10)
+startBookFig("../paper/figure3.jpg",TRUE,font =10)
 plot_grid(g1+ theme(legend.position="none")+labs(x = NULL)+theme(strip.text.x = element_text(size = 7)),
           g2+ theme(legend.position="none")+labs(x = NULL)+theme(strip.text.x = element_text(size = 7)),
           g3+ theme(legend.position="none")+labs(x = NULL)+theme(strip.text.x = element_text(size = 7)),
@@ -148,3 +148,4 @@ dev.off()
 
 
 #g<-g + xlab('Population \u03b7\u00B2')+ylab("Power (1-\u03b2)")
+
