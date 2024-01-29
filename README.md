@@ -7,9 +7,9 @@ Please, clone the repository to perform any of the simulations
 For each model type, simulations results data are contained in the model type folder. They can be plotted using:
 
 * `plot_accuracy_r2.R`: Plot of the retrieved $R^2$ and $R_{adj}^2$ (Figure 1).
-* `plot_accuracy_eta2.R`: Plot of the retrieved $\eta^2$ and $\gamma^2$ (Figure 2).
+* `plot_accuracy_eta2.R`: Plot of the retrieved $\eta^2$ and $\epsilon^2$ (Figure 2).
 * `plot_power_r2.R`: Plot of the power estimates based on $R^2$ and $R_{adj}^2$ (Figure 3).
-* `plot_power_eta2.R`: Plot of the power estimates based on $\eta^2$ and $\gamma^2$ (Figure 4).
+* `plot_power_eta2.R`: Plot of the power estimates based on $\eta^2$ and $\epsilon^2$ (Figure 4).
 * `plot_required_n.R`: Plot of the observed and estimated required N (Figure 5).
 
 # Simulations Results
@@ -17,9 +17,9 @@ For each model type, simulations results data are contained in the model type fo
 To obtain a new set of simulation results for each model type go into the corresponding model type folder and run:
 
 * `simulate_r2.R`: simulate data to estimate $R^2$ and $R_{adj}^2$.
-* `simulate_eta2.R`: simulate data to estimate $\eta^2$ and $\gamma^2$ .
+* `simulate_eta2.R`: simulate data to estimate $\eta^2$ and $\epsilon^2$ .
 * `simulate_n_r2.R`: simulate data to estimate the required sample size for different $R^2$.
-* `simulate_n_eta2.R`: simulate data to estimate the required sample size for different $\gamma^2$ .
+* `simulate_n_eta2.R`: simulate data to estimate the required sample size for different $\epsilon^2$ .
 
 # Simulations from scratch
 
