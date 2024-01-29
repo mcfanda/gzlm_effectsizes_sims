@@ -1,13 +1,13 @@
 source("functions.R")
 
 library(ggplot2)
-load("binomial/requiredN_eta2.Rdata")
+load("binomial/requiredN_r2.Rdata")
 requiredN$model<-"Binomial"
 dd<-requiredN
-load("multinomial/requiredN_eta2.Rdata")
+load("multinomial/requiredN_r2.Rdata")
 requiredN$model<-"Multinomial"
 dd<-rbind(dd,requiredN)
-load("ordinal/requiredN_eta2.Rdata")
+load("ordinal/requiredN_r2.Rdata")
 requiredN$eN<-requiredN$eN
 requiredN$model<-"Ordinal"
 dd<-rbind(dd,requiredN)
@@ -50,6 +50,7 @@ g<-g+theme_classic()+ theme(plot.title = element_text(hjust = 0.5))+labs(color="
 g2<-g
 
 g2
+
 library(cowplot)
 
 startBookFig("../paper/figure5.jpg",TRUE,font =10)
