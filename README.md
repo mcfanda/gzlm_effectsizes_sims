@@ -1,4 +1,6 @@
-# Material for the manuscript ""
+# Material for the manuscript:
+
+_Model-based effect size indices for logistic and other generalized linear models: Computation and power analysis_.
 
 Please, clone the repository to perform any of the simulations
 
